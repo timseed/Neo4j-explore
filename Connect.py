@@ -12,7 +12,7 @@ def add_people(tx, name, gender, years=21):
     """
     Create a people object with 3 attributes 
     """
-    tx.run("CREATE (people {name: $value, gender: $gender, age:$years})",
+    tx.run("CREATE (n:people {name: $value, gender: $gender, age:$years})",
       value=name,
       gender=gender,
       years=years) 
