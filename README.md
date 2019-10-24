@@ -55,3 +55,9 @@ Something like this should appear.
 
 ![./img/3.png](./img/3.png)
 
+
+### Code Quality
+
+I now have used Black, and pylint on this code. So it is ok from that point of view. 
+
+I should however write some tests... maybe for another day.
