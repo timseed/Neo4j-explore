@@ -32,3 +32,26 @@ So can I manipulate the dataclass __repr__ to create my Cypher code ? Yes, it wa
 This is much better for me - it means I can create a group (list) of objects and then use a generic module to insert them. As the dataclasses know their fields, names etc ... I can simplify the codebase.
 
 
+### Checking the Graph
+
+Run the code - it should load very fast... and enter this query
+
+
+    match(n:people{name:"Doc"})
+    return n
+
+You should see something like this 
+
+![./img/1.png](./img/1.png)
+
+Now click Doc and press the Bottom network symbol.
+The graph should be updated showing that "Doc" is connected to "M" and the "Dwarf House"
+
+![./img/2.png](./img/2.png)
+
+Now click on the "Dwarf House" - and repeat
+
+Something like this should appear.
+
+![./img/3.png](./img/3.png)
+
