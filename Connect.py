@@ -1,4 +1,17 @@
 from neo4j import GraphDatabase
+import dataclasses
+
+
+@dataclasses.dataclass
+class house:
+    name: str
+    address: str
+
+    @property
+    def cypher(self):
+        obj_str = str(self)
+        return "CREATE (n:"+str(obj_str).replace('=', ':').replace('(', '{').replace(')', '}')+")"
+
 
 uri = "bolt://localhost:7687"
 driver = GraphDatabase.driver(uri, auth=("neo4j", "ducati"))
@@ -10,6 +23,12 @@ def del_all(tx):
     """
     tx.run("match(n) "
            "detach delete n ")
+
+
+def add_dataclass_obj(tx, args):
+    for n in args:
+        print("adding")
+        tx.run(n.cypher)
 
 
 def add_people(tx, name, gender, years=21):
@@ -37,6 +56,13 @@ def create_gender(tx):
     tx.run("Create (n:female {gender:'F'})")
 
 
+housing = []
+housing.append(house(name="Dwarf House", address="City"))
+housing.append(house(name="Gold Mine", address="City"))
+housing.append(house(name="Castle", address="Countryside"))
+
+
+
 with driver.session() as session:
     session.read_transaction(del_all)
 
@@ -47,11 +73,7 @@ with driver.session() as session:
     session.read_transaction(add_people, "Doc", "M", 60)
     session.read_transaction(add_people, "Grumpy", "M")
     session.read_transaction(link_people)
-
-
-#
-#
-#
+    session.read_transaction(add_dataclass_obj, housing)
 
 
 print("""In the Web browser please enter this Cypher statement
